@@ -1,6 +1,12 @@
 # .github
 Organization-wide GitHub defaults and governance for ores-otel-test
 
+The organization-wide test fleet is declared in `fleet/repositories.json`.
+`scripts/validate_fleet.py` checks that the inventory contains at least 42
+unique repositories and that its functional run-lifecycle relation is total,
+terminal, and phase-monotone. When all checkouts are present locally, pass
+`--workspace /path/to/ores-otel-test` to also verify every declared workflow.
+
 
 <!-- ore-org-baseline:begin -->
 ## Organization-wide defaults

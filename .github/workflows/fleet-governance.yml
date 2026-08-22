@@ -1,0 +1,43 @@
+name: Fleet governance
+
+on:
+  pull_request:
+    paths:
+      - 'fleet/**'
+      - 'scripts/validate_fleet.py'
+      - 'tests/test_fleet.py'
+      - '.github/workflows/fleet-governance.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'fleet/**'
+      - 'scripts/validate_fleet.py'
+      - 'tests/test_fleet.py'
+      - '.github/workflows/fleet-governance.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fleet-governance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Set up Python 3.13
+        uses: actions/setup-python@b64ffcaf5b410884ad320a9cfac8866006a109aa # v6
+        with:
+          python-version: '3.13'
+      - name: Validate formal fleet contract
+        run: python scripts/validate_fleet.py
+      - name: Test lifecycle relation
+        run: python -m unittest discover -s tests -v

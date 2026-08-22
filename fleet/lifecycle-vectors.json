@@ -1,0 +1,27 @@
+{
+  "schema": "ores-otel-test/fleet-run-lifecycle/v1",
+  "states": ["declared", "queued", "running", "passed", "failed"],
+  "events": ["dispatch", "start", "succeed", "fail"],
+  "cases": [
+    {"state": "declared", "event": "dispatch", "expectedState": "queued", "expectedAction": "queue"},
+    {"state": "declared", "event": "start", "expectedState": "declared", "expectedAction": "ignore"},
+    {"state": "declared", "event": "succeed", "expectedState": "declared", "expectedAction": "ignore"},
+    {"state": "declared", "event": "fail", "expectedState": "declared", "expectedAction": "ignore"},
+    {"state": "queued", "event": "dispatch", "expectedState": "queued", "expectedAction": "ignore"},
+    {"state": "queued", "event": "start", "expectedState": "running", "expectedAction": "start"},
+    {"state": "queued", "event": "succeed", "expectedState": "queued", "expectedAction": "ignore"},
+    {"state": "queued", "event": "fail", "expectedState": "queued", "expectedAction": "ignore"},
+    {"state": "running", "event": "dispatch", "expectedState": "running", "expectedAction": "ignore"},
+    {"state": "running", "event": "start", "expectedState": "running", "expectedAction": "ignore"},
+    {"state": "running", "event": "succeed", "expectedState": "passed", "expectedAction": "pass"},
+    {"state": "running", "event": "fail", "expectedState": "failed", "expectedAction": "fail"},
+    {"state": "passed", "event": "dispatch", "expectedState": "passed", "expectedAction": "ignore"},
+    {"state": "passed", "event": "start", "expectedState": "passed", "expectedAction": "ignore"},
+    {"state": "passed", "event": "succeed", "expectedState": "passed", "expectedAction": "ignore"},
+    {"state": "passed", "event": "fail", "expectedState": "passed", "expectedAction": "ignore"},
+    {"state": "failed", "event": "dispatch", "expectedState": "failed", "expectedAction": "ignore"},
+    {"state": "failed", "event": "start", "expectedState": "failed", "expectedAction": "ignore"},
+    {"state": "failed", "event": "succeed", "expectedState": "failed", "expectedAction": "ignore"},
+    {"state": "failed", "event": "fail", "expectedState": "failed", "expectedAction": "ignore"}
+  ]
+}
