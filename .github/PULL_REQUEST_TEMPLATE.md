@@ -20,3 +20,11 @@ Describe affected repositories, APIs, schemas, generated artifacts, migrations, 
 ## Risks and roll-forward plan
 
 Describe operational risks, monitoring, compatibility, and reversible roll-forward handling.
+
+## Salvage check
+
+If this PR supersedes or replaces an older one, say which, and name at least one
+concrete thing carried forward from it (a test, a fixture, an error message, a
+pin, a doc paragraph). See [`docs/pr-salvage-policy.md`](../docs/pr-salvage-policy.md).
+
+- [ ] Supersedes nothing, **or** the salvaged item is named above.
