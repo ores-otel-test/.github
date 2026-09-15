@@ -1,0 +1,14 @@
+name: test counterpart identity
+on:
+  pull_request:
+    paths: ['architecture/test-counterpart.json', '.github/workflows/test-counterpart-identity.yml']
+  push:
+    branches: [main]
+    paths: ['architecture/test-counterpart.json', '.github/workflows/test-counterpart-identity.yml']
+  workflow_dispatch: {}
+permissions: {contents: read}
+jobs:
+  validate:
+    uses: zed-pkg-test/.github/.github/workflows/reusable-test-counterpart-identity.yml@a4ebf7e2a7dc6cd89d980a80b70e2144d60ca158
+    with:
+      mapping_path: architecture/test-counterpart.json
